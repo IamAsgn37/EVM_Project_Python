@@ -3,6 +3,7 @@ import pyttsx3
 import mysql.connector
 from datetime import date
 #import user
+import maskpass
 def voice():
     speak=pyttsx3.init()
     speak.say("Welcome in Electronic voting Machine 2022")
@@ -16,28 +17,50 @@ def blo():
         print("="*53)
         print("\t\tWELCOME TO BLO PAGE")
         print("="*53)
-        print("\nPRESS 1. ADD VOTER IN LIST")
-        print("PRESS 2. SHOW VOTER LIST")
-        print("PRESS 3. DELETE VOTER FORM LIST")
-        print("PRESS 4. MODIFY VOTER INFORMATION")
-        print("PRESS 5. MAIN MENU")
-        print("-"*53)
-        B_INPUT=int(input("PLEASE ENTER YOUR CHOICE:->  "))
-        print("-"*53)
-        print()
-        if B_INPUT==1:
-            add_voter()
-        elif B_INPUT==2:
-            show_voter()
+#--------------------------------------------------------------------------
+        bid="blo001"
+        bidpass="lnct1"
+        d=0
+        while(d<3):
+            bid1=input("ENTER BLO ID :")
+            if bid1==bid:
+                bidpass1=maskpass.askpass(prompt="ENTER BLO PASSWORD :",mask="*")
+                if bidpass1==bidpass:
+                    print("WELCOME YOU ARE AUTHORISED TO ACCESS")
+                    print("="*53)
+#--------------------------------------------------------------------------
+                    print("\nPRESS 1. ADD VOTER IN LIST")
+                    print("PRESS 2. SHOW VOTER LIST")
+                    print("PRESS 3. DELETE VOTER FORM LIST")
+                    print("PRESS 4. MODIFY VOTER INFORMATION")
+                    print("PRESS 5. MAIN MENU")
+                    print("-"*53)
+                    B_INPUT=int(input("PLEASE ENTER YOUR CHOICE:->  "))
+                    print("-"*53)
+                    print()
+                    if B_INPUT==1:
+                        add_voter()
+                    elif B_INPUT==2:
+                        show_voter()
             
-        elif B_INPUT==3:
-            delete_voter()
+                    elif B_INPUT==3:
+                        delete_voter()
         
-        elif B_INPUT==4:
-            modify_voter()
+                    elif B_INPUT==4:
+                        modify_voter()
+                    else:
+                        print("\n\tSUCESSFULLY EXIT FROM BLO PAGE..!\n")
+                        break
+                else:
+                    d += 1
+                    print("\t\tINVALID BLO PASWORD.......!")
+            else:
+                d += 1
+                print("\t\tINVALID BLO ID...........!")
         else:
-            print("\n\tSUCESSFULLY EXIT FROM BLO PAGE..!\n")
-            break
+            print("\t\tYOU HAVE REACHED THE MAXIMUM LIMIT")
+            x=input("\t\tPRESS ANY KEY TO CONTINUE......")
+            exit()
 #============================================================================================================
 #                                                    ADD VOTER
 #=============================================================================================================
@@ -246,7 +269,7 @@ def start_voting():
     name=[]
     party_name=[]
     symbol=[]
-    voting_list=[]
+    voting_list=[]           
     n=int(input("ENTER TOTAL NUMBER OF CANDIDATE : "))
     VOTING=[0]*n
     for i in range(n):
@@ -299,35 +322,58 @@ def admin():
         print("="*53)
         print("\t\tWELCOME TO ADMIN PAGE\t\t")
         print("="*53)
-        print("\nPRESS 1. START VOTING")
-        print("PRESS 2. SHOW VOTER LIST")
-        print("PRESS 3. SHOW TOTAL VOTE COUNT")
-        print("PRESS 4. SHOW LEADING CANDIDATE")
-        print("PRESS 5. EXIT")
-        print("="*53)
+#------------------------------------------------------------------
+        id="evm2022"
+        idpass="lnct"
+        c=0
+        while(c<3):
+            id1=input("ENTER YOUR ADMIN ID :")
+            if id1==id:
+                idpass1=maskpass.askpass(prompt="ENTER ADMIN PASSWORD :",mask="*")
+                if idpass1==idpass:
+                    print("WELCOME YOU ARE AUTHORISED TO ACCESS")
+                    print("="*53)
+#------------------------------------------------------------------
+                    print("\nPRESS 1. START VOTING")
+                    print("PRESS 2. SHOW VOTER LIST")
+                    print("PRESS 3. SHOW TOTAL VOTE COUNT")
+                    print("PRESS 4. SHOW LEADING CANDIDATE")
+                    print("PRESS 5. EXIT")
+                    print("="*53)
     
-        A_INPUT=int(input("PLEASE ENTER YOUR CHOICE:->  "))
-        if A_INPUT==1:
-            print("="*53)
-            print("\n\t\tVOTING STARTING NOW....")
-            #user()
-            start_voting()
-            print("="*53)
-        elif A_INPUT==2:
-            show_voter()
-        elif A_INPUT==3:
-            print("="*53)
-            print("\t\tTOTAL VOTES ARE COUNTED")
-            print("="*53)
-        elif A_INPUT==4:
-            print("="*53)
-            print("\t\t\tWINNER")
-            print("="*53)
+                    A_INPUT=int(input("PLEASE ENTER YOUR CHOICE:->  "))
+                    if A_INPUT==1:
+                        print("="*53)
+                        print("\n\t\tVOTING STARTING NOW....")
+                        #user()
+                        start_voting()
+                        print("="*53)
+                    elif A_INPUT==2:
+                        show_voter()
+                    elif A_INPUT==3:
+                        print("="*53)
+                        print("\t\tTOTAL VOTES ARE COUNTED")
+                        print("="*53)
+                    elif A_INPUT==4:
+                        print("="*53)
+                        print("\t\t\tWINNER")
+                        print("="*53)
+                    else:
+                        print("="*53)
+                        print("\t\nSUCCESSFULLY EXIT FROM ADMIN PAGE...!")
+                        print("="*53)
+                    break
+                else:
+                    c += 1
+                    print("\t\tINVALID ADMIN PASWORD.......!")
+            else:
+                c += 1
+                print("\t\tINVALID ADMIN ID...........!")
         else:
-            print("="*53)
-            print("\t\nSUCCESSFULLY EXIT FROM ADMIN PAGE...!")
-            print("="*53)
-            break
+            print("\t\tYOU HAVE REACHED THE MAXIMUM LIMIT")
+            x=input("\t\tPRESS ANY KEY TO CONTINUE......")
+            exit()
+
     
 #==============================================================================
         #               VOTING
@@ -351,7 +397,7 @@ def user():
 print("*****************************************************")
 print("*****************************************************")
 print("**                                                 **")
-print("**         ELECTION  VOTING  MACHINE - 2022        **")
+print("**         ELECTRONIC VOTING MACHINE - 2022        **")
 print("**                                                 **")
 print("*****************************************************")
 print("*****************************************************")
